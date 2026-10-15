@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfiles - CiberDuo</title>
+</head>
+<body>
+
+    <h1>Administración de Perfiles</h1>
+    <a href="{% url 'crear_perfil' %}">Crear Nuevo Perfil</a>
+    <a href="{% url 'panel_admin' %}">Volver al Panel de Administración</a>
+
+    <hr>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    
+    <table border="1" cellpadding="8">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Slug</th>
+                <th>Descripción</th>
+                <th>Activo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for perfil in perfiles %}
+                <tr>
+                    <td>{{ perfil.id }}</td>
+                    <td>{{ perfil.nombre }}</td>
+                    <td>{{ perfil.slug }}</td>
+                    <td>{{ perfil.descripcion }}</td>
+                    <td>{{ perfil.activo }}</td>
+                    <td>
+                        <a href="{% url 'editar_perfil' perfil.id %}">Editar</a> |
+                        <a href="{% url 'eliminar_perfil' perfil.id %}">Eliminar</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6">No hay perfiles disponibles.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

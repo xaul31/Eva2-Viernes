@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preguntas - CiberDuo</title>
+</head>
+<body>
+    
+    <h1>Lista de Preguntas</h1>
+    <a href="{% url 'crear_pregunta' %}">Crear Pregunta</a>
+    <a href="{% url 'panel_admin' %}">Volver al Panel de Administración</a>
+
+    <hr>
+
+    <h2>Buscar y filtrar preguntas</h2>
+
+    <form method="GET">
+        <input type="text" name="buscar" placeholder="Buscar preguntas" value="{{ request.GET.buscar }}">
+
+        <select name="perfil">
+            <option value="">Todos los perfiles</option>
+            
+            {% for perfil in perfiles %}
+                <option value="{{ perfil.id }}" {% if request.GET.perfil == perfil.id|stringformat:"s" %}selected{% endif %}>
+                    {{ perfil.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <select name="amenaza">
+            <option value="">Todas las amenazas</option>
+            
+            {% for amenaza in amenazas %}
+                <option value="{{ amenaza.id }}" {% if request.GET.amenaza == amenaza.id|stringformat:"s" %}selected{% endif %}>
+                    {{ amenaza.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <select name="medio">
+            <option value="">Todos los medios</option>
+            
+            {% for medio in medios %}
+                <option value="{{ medio.id }}" {% if request.GET.medio == medio.id|stringformat:"s" %}selected{% endif %}>
+                    {{ medio.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Buscar y filtrar</button>
+
+        <a href="{% url 'lista_preguntas' %}">Restablecer filtros</a>
+    </form>
+
+    <hr>
+
+    {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+    {% endif %}
+
+    <h2>Listado de preguntas</h2>
+
+    <table border="1" cellpadding="8">
+        <tr>
+            <th>ID</th>
+            <th>Enunciado</th>
+            <th>Perfil</th>
+            <th>Tipo de amenaza</th>
+            <th>Medio</th>
+            <th>Puntos</th>
+            <th>Activa</th>
+            <th>Acciones</th>
+        </tr>
+
+        {% for pregunta in preguntas %}
+        <tr>
+            <td>{{ pregunta.id }}</td>
+            <td>{{ pregunta.enunciado }}</td>
+            <td>{{ pregunta.perfil.nombre }}</td>
+            <td>{{ pregunta.tipo_amenaza.nombre }}</td>
+            <td>{{ pregunta.medio.nombre }}</td>
+            <td>{{ pregunta.puntos }}</td>
+            <td>
+                {% if pregunta.activa %}
+                    Sí
+                {% else %}
+                    No
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'editar_pregunta' pregunta.id %}">Editar</a> |
+                <a href="{% url 'eliminar_pregunta' pregunta.id %}">Eliminar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8">No hay preguntas disponibles.</td></tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

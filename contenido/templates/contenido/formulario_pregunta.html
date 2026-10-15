@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Pregunta - CiberDuo</title>
+</head>
+<body>
+
+    {% if object %}
+        <h1>Editar Pregunta</h1>
+    {% else %}
+        <h1>Crear Nueva Pregunta</h1>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+        <a href="{% url 'lista_preguntas' %}">Cancelar</a>
+    </form>
+
+</body>
+</html>

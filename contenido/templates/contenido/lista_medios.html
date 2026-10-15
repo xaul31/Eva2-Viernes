@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medios - CiberDuo</title>
+</head>
+<body>
+
+    <h1>Administracion de Medios</h1>
+
+    <a href="{% url 'crear_medio' %}">Crear Nuevo Medio</a>
+    <a href="{% url 'panel_admin' %}">Volver al Panel de Administración</a>
+
+    <hr>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <table border="1" cellpadding="8">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Orden</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for medio in medios %}
+                <tr>
+                    <td>{{ medio.id }}</td>
+                    <td>{{ medio.nombre }}</td>
+                    <td>{{ medio.orden }}</td>
+                    <td>
+                        <a href="{% url 'editar_medio' medio.pk %}">Editar</a> |
+                        <a href="{% url 'eliminar_medio' medio.pk %}">Eliminar</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">No hay medios disponibles.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    
+</body>
+</html>

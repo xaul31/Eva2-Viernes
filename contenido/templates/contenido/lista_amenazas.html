@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipo de Amenaza - CiberDuo</title>
+</head>
+
+<body>
+
+    <h1>Administración de Tipos de Amenaza</h1>
+
+    <a href="{% url 'crear_amenaza' %}">Crear Nuevo Tipo de Amenaza</a>
+    <a href="{% url 'panel_admin' %}">Volver al Panel de Administración</a>
+
+    <hr>
+
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+
+    <table border="1" cellpadding="8">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for amenaza in amenazas %}
+            <tr>
+                <td>{{ amenaza.id }}</td>
+                <td>{{ amenaza.nombre }}</td>
+                <td>{{ amenaza.descripcion }}</td>
+                <td>
+                    <a href="{% url 'editar_amenaza' amenaza.id %}">Editar</a> |
+                    <a href="{% url 'eliminar_amenaza' amenaza.id %}">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No hay tipos de amenaza disponibles.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
