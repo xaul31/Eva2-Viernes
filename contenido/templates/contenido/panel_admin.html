@@ -1,21 +1,49 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <link rel="stylesheet" href="{% static 'contenido/estilos.css' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Administración - CiberDuo</title>
 </head>
 <body>
 
-    <h1>Panel de Administración</h1>
+    <h1>Panel de Administración - CiberDuo</h1>
+
+    <p>Desde este panel puedes administrar el contenido de los cuestionarios.</p>
+
+    <hr>
+
+    <h2>Gestión de Contenido</h2>
 
     <ul>
-        <li><a href="{% url 'lista_preguntas' %}">Gestionar Preguntas</a></li>
-        <li><a href="{% url 'lista_perfiles' %}">Gestionar Perfiles</a></li>
-        <li><a href="{% url 'lista_amenazas' %}">Gestionar Amenazas</a></li>
-        <li><a href="{% url 'lista_medios' %}">Gestionar Medios</a></li>
-        <li><a href="{% url 'lista_opciones' %}">Gestionar Opciones</a></li>
+        <li>
+            <a href="{% url 'lista_perfiles' %}">Gestionar Perfiles</a>
+        </li>
+
+        <li>
+            <a href="{% url 'lista_amenazas' %}">Gestionar Tipos de Amenaza</a>
+        </li>
+
+        <li>
+            <a href="{% url 'lista_medios' %}">Gestionar Medios</a>
+        </li>
+
+        <li>
+            <a href="{% url 'lista_preguntas' %}">Gestionar Preguntas</a>
+        </li>
+
+        <li>
+            <a href="{% url 'lista_opciones' %}">Gestionar Opciones</a>
+        </li>
     </ul>
-    
+
+    <hr>
+
+    <h2>Cuestionarios</h2>
+
+    <a href="{% url 'cuestionario' %}">Ver Cuestionario</a>
+
 </body>
 </html>
