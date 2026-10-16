@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Eliminar Pregunta - CiberDuo</title>
+</head>
+<body>
+
+    <h1>Eliminar pregunta</h1>
+
+    <p>¿Estás seguro de eliminar esta pregunta?</p>
+
+    <p><strong>{{ object.enunciado }}</strong></p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <button type="submit">Sí, eliminar</button>
+
+        <a href="{% url 'lista_preguntas' %}">
+            Cancelar
+        </a>
+    </form>
+
+</body>
+</html>

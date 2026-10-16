@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario - CiberDuo</title>
+</head>
+<body>
+
+    <h1>Cuestionario de CiberDuo</h1>
+
+    <a href="{% url 'panel_admin' %}">Panel de Administración</a>
+
+    <hr>
+
+    <h2>Preguntas Disponibles</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    {% for pregunta in preguntas %}
+        
+        <h3>{{ pregunta.enunciado }}</h3>
+
+        <p><strong>Perfil:</strong> {{ pregunta.perfil.nombre }}</p>
+        <p><strong>Tipo de Amenaza:</strong> {{ pregunta.tipo_amenaza.nombre }}</p>
+        <p><strong>Medio:</strong> {{ pregunta.medio.nombre }}</p>
+
+        <p>{{ pregunta.mensaje_simulado }}</p>
+
+        <h4>Alternativas:</h4>
+
+        <form method="post" action="{% url 'responder_pregunta' pregunta.id %}">
+            {% csrf_token %}
+            {% for opcion in pregunta.opciones.all %}
+                <p>
+                    <label>
+                    <input type="radio" name="opcion" value="{{ opcion.id }}" required>
+                    {{ opcion.texto }}
+                    </label>
+                </p>
+            {% endfor %}
+            <button type="submit">Responder</button>
+        </form>
+
+        <hr>
+        
+    {% empty %}
+        <p>No hay preguntas disponibles.</p>
+    {% endfor %}
+
+</body>
+</html>

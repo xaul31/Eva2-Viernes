@@ -15,8 +15,8 @@
 
     <h2>Buscar y filtrar preguntas</h2>
 
-    <form method="GET">
-        <input type="text" name="buscar" placeholder="Buscar preguntas" value="{{ request.GET.buscar }}">
+    <form method="GET" action="{% url 'lista_preguntas' %}">
+        <input type="text" name="buscar" placeholder="Buscar por enunciado" value="{{ request.GET.buscar }}">
 
         <select name="perfil">
             <option value="">Todos los perfiles</option>
@@ -91,7 +91,7 @@
                 {% endif %}
             </td>
             <td>
-                <a href="{% url 'editar_pregunta' pregunta.id %}">Editar</a> |
+                <a href="{% url 'editar_pregunta' pregunta.id %}">Editar</a>
                 <a href="{% url 'eliminar_pregunta' pregunta.id %}">Eliminar</a>
             </td>
         </tr>

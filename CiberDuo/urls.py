@@ -37,4 +37,10 @@ urlpatterns = [
     path('medios/crear/', views.MedioCreateView.as_view(), name='crear_medio'),
     path('medios/<int:pk>/editar/', views.MedioUpdateView.as_view(), name='editar_medio'),
     path('medios/<int:pk>/eliminar/', views.MedioDeleteView.as_view(), name='eliminar_medio'),
+    path('opciones/', views.OpcionListView.as_view(), name='lista_opciones'),
+    path('opciones/crear/', views.OpcionCreateView.as_view(), name='crear_opcion'),
+    path('opciones/<int:pk>/editar/', views.OpcionUpdateView.as_view(), name='editar_opcion'),
+    path('opciones/<int:pk>/eliminar/', views.OpcionDeleteView.as_view(), name='eliminar_opcion'),
+    path('', views.CuestionarioListView.as_view(), name='cuestionario'),
+    path('cuestionario/<int:pk>/responder/', views.ResponderPreguntaView.as_view(), name='responder_pregunta'),
 ]
