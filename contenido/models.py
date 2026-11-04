@@ -1,6 +1,7 @@
 # Create your models here.
 from django.db import models
 from django.conf import settings
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -71,7 +72,7 @@ class Opcion(models.Model):
 
 
 class RegistroRespuesta(models.Model):
-    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     pregunta = models.ForeignKey(Pregunta, on_delete=models.PROTECT)
     opcion = models.ForeignKey(Opcion, on_delete=models.PROTECT)
     fecha_respuesta = models.DateTimeField(auto_now_add=True)

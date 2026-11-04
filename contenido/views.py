@@ -248,3 +248,5 @@ class ResponderPreguntaView(View):
             )
 
         return redirect('cuestionario')
+
+
