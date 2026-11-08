@@ -120,9 +120,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Configuracion de sessions
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+SESSION_COOKIE_AGE = 3600
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Configuracion de login
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'cuestionario'
+LOGOUT_REDIRECT_URL = 'login'

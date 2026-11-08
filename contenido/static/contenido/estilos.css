@@ -1,11 +1,33 @@
 /* ==========================================================
    CiberDuo - estilos generales
-   Solo apariencia: no depende de clases, usa las etiquetas
-   que ya existen en las plantillas.
+   Complementa Bootstrap con estilos propios del proyecto.
    Paleta: azul marino #0f172a | azul #2563eb | celeste #e0f2fe
    ========================================================== */
 
 * { box-sizing: border-box; }
+
+/* Bootstrap base para los campos que Django genera con form.as_p. */
+main form input:not([type="checkbox"]):not([type="radio"]),
+main form select,
+main form textarea {
+    display: block;
+    width: 100%;
+    max-width: 640px;
+    padding: .375rem .75rem;
+    margin: .25rem 0 .75rem;
+    color: #212529;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .375rem;
+}
+
+main form input:focus,
+main form select:focus,
+main form textarea:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);
+}
 
 body {
     font-family: "Segoe UI", Roboto, Arial, sans-serif;

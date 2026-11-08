@@ -1,0 +1,41 @@
+
+{% if not request.COOKIES.ciberduo_cookie_consent %}
+
+<section class="banner-cookies">
+
+    <div class="cookies-texto">
+        <h3>Usamos cookies</h3>
+
+        <p>
+            CiberDuo utiliza cookies necesarias para su funcionamiento.
+            También puedes aceptar o rechazar las cookies opcionales.
+        </p>
+    </div>
+
+    <div class="cookies-botones">
+
+        <form method="post" action="{% url 'guardar_consentimiento' %}">
+            {% csrf_token %}
+            <input type="hidden" name="decision" value="accepted">
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+
+            <button type="submit" class="btn-aceptar">
+                Aceptar cookies
+            </button>
+        </form>
+
+        <form method="post" action="{% url 'guardar_consentimiento' %}">
+            {% csrf_token %}
+            <input type="hidden" name="decision" value="rejected">
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+
+            <button type="submit" class="btn-rechazar">
+                Rechazar opcionales
+            </button>
+        </form>
+
+    </div>
+
+</section>
+
+{% endif %}

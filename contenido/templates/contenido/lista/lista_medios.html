@@ -1,15 +1,8 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <link rel="stylesheet" href="{% static 'contenido/estilos.css' %}">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medios - CiberDuo</title>
-</head>
-<body>
+{% extends 'contenido/base.html' %}
 
-    <h1>Administracion de Medios</h1>
+{% block contenido %}
+
+<h1>Administracion de Medios</h1>
 
     <a href="{% url 'crear_medio' %}">Crear Nuevo Medio</a>
     <a href="{% url 'panel_admin' %}">Volver al Panel de Administración</a>
@@ -22,7 +15,7 @@
         {% endfor %}
     {% endif %}
 
-    <table border="1" cellpadding="8">
+    <table class="table table-striped table-hover align-middle" border="1" cellpadding="8">
         <thead>
             <tr>
                 <th>ID</th>
@@ -48,6 +41,5 @@
                 </tr>
             {% endfor %}
         </tbody>
-    
-</body>
-</html>
+
+{% endblock %}

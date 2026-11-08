@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from contenido import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin_usuarios'),
     path('preguntas/', views.PreguntaListView.as_view(), name='lista_preguntas'),
     path('preguntas/crear/', views.PreguntaCreateView.as_view(), name='crear_pregunta'),
     path('preguntas/<int:pk>/editar/', views.PreguntaUpdateView.as_view(), name='editar_pregunta'),
@@ -41,6 +42,11 @@ urlpatterns = [
     path('opciones/crear/', views.OpcionCreateView.as_view(), name='crear_opcion'),
     path('opciones/<int:pk>/editar/', views.OpcionUpdateView.as_view(), name='editar_opcion'),
     path('opciones/<int:pk>/eliminar/', views.OpcionDeleteView.as_view(), name='eliminar_opcion'),
-    path('', views.CuestionarioListView.as_view(), name='cuestionario'),
+    path('cuestionario/', views.CuestionarioListView.as_view(), name='cuestionario'),
     path('cuestionario/<int:pk>/responder/', views.ResponderPreguntaView.as_view(), name='responder_pregunta'),
+    path('', auth_views.LoginView.as_view(template_name='contenido/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('registro/', views.RegistroView.as_view(), name='registro'),
+    path('historial/', views.HistorialView.as_view(), name='historial'),
+    path('guardar-consentimiento/', views.guardar_consentimiento, name='guardar_consentimiento'),
 ]

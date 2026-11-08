@@ -1,22 +1,14 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <link rel="stylesheet" href="{% static 'contenido/estilos.css' %}">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eliminar Opción - CiberDuo</title>
-</head>
-<body>
-    
-    <h1>Eliminar Opción</h1>
+{% extends 'contenido/base.html' %}
+
+{% block contenido %}
+
+<h1>Eliminar Opción</h1>
     <p>¿Estás seguro de que deseas eliminar la opción "{{ object.texto }}"?</p>
 
-    <form method="POST">
+    <form class="card card-body mb-3" method="POST">
         {% csrf_token %}
-        <button type="submit">Confirmar eliminación</button>
+        <button class="btn btn-danger" type="submit">Confirmar eliminación</button>
         <a href="{% url 'lista_opciones' %}">Cancelar</a>
     </form>
-    
-</body>
-</html>
+
+{% endblock %}

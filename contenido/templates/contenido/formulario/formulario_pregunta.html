@@ -1,26 +1,18 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <link rel="stylesheet" href="{% static 'contenido/estilos.css' %}">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Pregunta - CiberDuo</title>
-</head>
-<body>
+{% extends 'contenido/base.html' %}
 
-    {% if object %}
+{% block contenido %}
+
+{% if object %}
         <h1>Editar Pregunta</h1>
     {% else %}
         <h1>Crear Nueva Pregunta</h1>
     {% endif %}
 
-    <form method="POST">
+    <form class="card card-body mb-3" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Guardar</button>
+        <button class="btn btn-primary" type="submit">Guardar</button>
         <a href="{% url 'lista_preguntas' %}">Cancelar</a>
     </form>
 
-</body>
-</html>
+{% endblock %}

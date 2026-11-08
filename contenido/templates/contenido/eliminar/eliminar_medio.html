@@ -1,23 +1,15 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="{% static 'contenido/estilos.css' %}">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eliminar Medio - CiberDuo</title>
-</head>
-<body>
+{% extends 'contenido/base.html' %}
 
-    <h1>Eliminar Medio</h1>
+{% block contenido %}
+
+<h1>Eliminar Medio</h1>
 
     <p>¿Estás seguro de que deseas eliminar el medio "{{ medio.nombre }}"?</p>
 
-    <form method="POST">
+    <form class="card card-body mb-3" method="POST">
         {% csrf_token %}
-        <button type="submit">Sí, eliminar</button>
+        <button class="btn btn-danger" type="submit">Sí, eliminar</button>
         <a href="{% url 'lista_medios' %}">Cancelar</a>
     </form>
-    
-</body>
-</html>
+
+{% endblock %}

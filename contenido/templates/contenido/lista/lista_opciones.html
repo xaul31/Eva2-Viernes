@@ -1,15 +1,8 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <link rel="stylesheet" href="{% static 'contenido/estilos.css' %}">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opciones - CiberDuo</title>
-</head>
-<body>
+{% extends 'contenido/base.html' %}
 
-    <h1>Lista de Opciones</h1>
+{% block contenido %}
+
+<h1>Lista de Opciones</h1>
     <a href="{% url 'crear_opcion' %}">Crear Opción</a>
     <a href="{% url 'panel_admin' %}">Volver al Panel de Administración</a>
 
@@ -23,7 +16,7 @@
 
     <h2>Lista de Opciones</h2>
 
-    <table border="1" cellpadding="8">
+    <table class="table table-striped table-hover align-middle" border="1" cellpadding="8">
             <tr>
                 <th>ID</th>
                 <th>Pregunta</th>
@@ -60,6 +53,5 @@
             {% endfor %}
         </tbody>
     </table>
-    
-</body>
-</html>
+
+{% endblock %}

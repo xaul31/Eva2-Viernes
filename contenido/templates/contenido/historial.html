@@ -1,0 +1,22 @@
+{% extends 'contenido/base.html' %}
+
+{% block contenido %}
+
+<h1>Mi historial de respuestas</h1>
+
+    {% for registro in registros %}
+    <p>
+        <strong>{{ registro.pregunta.enunciado }}</strong><br>
+        Tu respuesta: {{ registro.opcion.texto }}<br>
+        Resultado:
+        {% if registro.opcion.es_correcta %}Correcta{% else %}Incorrecta{% endif %}<br>
+        Fecha: {{ registro.fecha_respuesta|date:"d/m/Y H:i" }}
+    </p>
+    <hr>
+    {% empty %}
+    <p>Aún no has respondido ninguna pregunta.</p>
+    {% endfor %}
+
+    <a href="{% url 'cuestionario' %}">Volver al cuestionario</a>
+
+{% endblock %}

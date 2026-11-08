@@ -1,49 +1,49 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <link rel="stylesheet" href="{% static 'contenido/estilos.css' %}">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración - CiberDuo</title>
-</head>
-<body>
 
-    <h1>Panel de Administración - CiberDuo</h1>
+{% extends 'contenido/base.html' %}
 
-    <p>Desde este panel puedes administrar el contenido de los cuestionarios.</p>
+{% block title %}
+Panel de Administración - CiberDuo
+{% endblock %}
 
-    <hr>
+{% block contenido %}
 
-    <h2>Gestión de Contenido</h2>
+<h1>Panel de Administración - CiberDuo</h1>
 
-    <ul>
-        <li>
-            <a href="{% url 'lista_perfiles' %}">Gestionar Perfiles</a>
-        </li>
+<p>Desde este panel puedes administrar el contenido de los cuestionarios.</p>
 
-        <li>
-            <a href="{% url 'lista_amenazas' %}">Gestionar Tipos de Amenaza</a>
-        </li>
+<hr>
 
-        <li>
-            <a href="{% url 'lista_medios' %}">Gestionar Medios</a>
-        </li>
+<h2>Gestión de Contenido</h2>
 
-        <li>
-            <a href="{% url 'lista_preguntas' %}">Gestionar Preguntas</a>
-        </li>
+<ul class="list-group mb-3">
+    <li class="list-group-item">
+        <a href="{% url 'lista_perfiles' %}">Gestionar Perfiles</a>
+    </li>
 
-        <li>
-            <a href="{% url 'lista_opciones' %}">Gestionar Opciones</a>
-        </li>
-    </ul>
+    <li class="list-group-item">
+        <a href="{% url 'lista_amenazas' %}">Gestionar Tipos de Amenaza</a>
+    </li>
 
-    <hr>
+    <li class="list-group-item">
+        <a href="{% url 'lista_medios' %}">Gestionar Medios</a>
+    </li>
 
-    <h2>Cuestionarios</h2>
+    <li class="list-group-item">
+        <a href="{% url 'lista_preguntas' %}">Gestionar Preguntas</a>
+    </li>
 
-    <a href="{% url 'cuestionario' %}">Ver Cuestionario</a>
+    <li class="list-group-item">
+        <a href="{% url 'lista_opciones' %}">Gestionar Opciones</a>
+    </li>
+    <li class="list-group-item">
+        <a href="{% url 'admin:index' %}">Gestionar Usuarios</a>
+    </li>
+</ul>
 
-</body>
-</html>
+<hr>
+
+<h2>Cuestionarios</h2>
+
+<a href="{% url 'cuestionario' %}">Ver Cuestionario</a>
+
+{% endblock %}

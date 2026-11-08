@@ -1,0 +1,17 @@
+{% extends 'contenido/base.html' %}
+
+{% block contenido %}
+
+<h1>Crear cuenta</h1>
+
+
+    <form class="card card-body mb-3" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button class="btn btn-primary" type="submit">Registrarme</button>
+    </form>
+
+    <p>¿Ya tienes una cuenta? <a href="{% url 'login' %}">Inicia sesión</a></p>
+
+{% endblock %}

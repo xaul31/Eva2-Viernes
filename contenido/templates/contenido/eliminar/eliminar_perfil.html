@@ -1,23 +1,15 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <link rel="stylesheet" href="{% static 'contenido/estilos.css' %}">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eliminar Perfil - CiberDuo</title>
-</head>
-<body>
+{% extends 'contenido/base.html' %}
 
-    <h1>Eliminar Perfil</h1>
+{% block contenido %}
+
+<h1>Eliminar Perfil</h1>
 
     <p>¿Estás seguro de que deseas eliminar el perfil "{{ object.nombre }}"?</p>
 
-    <form method="POST">
+    <form class="card card-body mb-3" method="POST">
         {% csrf_token %}
-        <button type="submit">Confirmar Eliminación</button>
+        <button class="btn btn-danger" type="submit">Confirmar Eliminación</button>
         <a href="{% url 'lista_perfiles' %}">Cancelar</a>
     </form>
-    
-</body>
-</html>
+
+{% endblock %}
