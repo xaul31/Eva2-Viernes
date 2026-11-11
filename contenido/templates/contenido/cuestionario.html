@@ -7,14 +7,14 @@ Cuestionario - CiberDuo
 
 {% block contenido %}
 
-<h1>Cuestionario de CiberDuo</h1>
+<h1>Dashboard de CiberDuo</h1>
 {% if user.is_staff %}
     <a href="{% url 'panel_admin' %}">Panel de Administración</a>
 {% endif %}
 
 <hr>
 
-<h2>Preguntas Disponibles</h2>
+<h2>Selecciona un perfil</h2>
 
 {% if messages %}
     {% for message in messages %}
@@ -22,37 +22,18 @@ Cuestionario - CiberDuo
     {% endfor %}
 {% endif %}
 
-{% for pregunta in preguntas %}
-
-    <h3>{{ pregunta.enunciado }}</h3>
-
-    <p><strong>Perfil:</strong> {{ pregunta.perfil.nombre }}</p>
-    <p><strong>Tipo de Amenaza:</strong> {{ pregunta.tipo_amenaza.nombre }}</p>
-    <p><strong>Medio:</strong> {{ pregunta.medio.nombre }}</p>
-
-    <p>{{ pregunta.mensaje_simulado }}</p>
-
-    <h4>Alternativas:</h4>
-
-    <form class="card card-body mb-3" method="post" action="{% url 'responder_pregunta' pregunta.id %}">
-        {% csrf_token %}
-
-        {% for opcion in pregunta.opciones.all %}
-            <p>
-                <label>
-                    <input type="radio" name="opcion" value="{{ opcion.id }}" required>
-                    {{ opcion.texto }}
-                </label>
-            </p>
-        {% endfor %}
-
-        <button class="btn btn-primary" type="submit">Responder</button>
-    </form>
-
-    <hr>
-
+{% for perfil in perfiles %}
+    <article class="perfil-card">
+        <h3>{{ perfil.nombre }}</h3>
+        {% if perfil.descripcion %}
+            <p>{{ perfil.descripcion }}</p>
+        {% else %}
+            <p>Consulta las preguntas disponibles para este perfil.</p>
+        {% endif %}
+        <a href="{% url 'preguntas_perfil' perfil.slug %}">Ver preguntas</a>
+    </article>
 {% empty %}
-    <p>No hay preguntas disponibles.</p>
+    <p>No hay perfiles disponibles.</p>
 {% endfor %}
 
 {% endblock %}

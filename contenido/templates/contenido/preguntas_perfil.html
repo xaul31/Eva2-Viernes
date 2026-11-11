@@ -1,0 +1,52 @@
+{% extends 'contenido/base.html' %}
+
+{% block contenido %}
+
+<h1>Preguntas de {{ perfil.nombre }}</h1>
+
+<p>
+    <a href="{% url 'cuestionario' %}">Volver al dashboard</a>
+</p>
+
+{% if perfil.descripcion %}
+    <p>{{ perfil.descripcion }}</p>
+{% endif %}
+
+{% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+{% for pregunta in preguntas %}
+
+    <h3>{{ pregunta.enunciado }}</h3>
+
+    <p><strong>Tipo de Amenaza:</strong> {{ pregunta.tipo_amenaza.nombre }}</p>
+    <p><strong>Medio:</strong> {{ pregunta.medio.nombre }}</p>
+    <p>{{ pregunta.mensaje_simulado }}</p>
+
+    <h4>Alternativas:</h4>
+
+    <form class="card card-body mb-3" method="post" action="{% url 'responder_pregunta' pregunta.id %}">
+        {% csrf_token %}
+
+        {% for opcion in pregunta.opciones.all %}
+            <p>
+                <label>
+                    <input type="radio" name="opcion" value="{{ opcion.id }}" required>
+                    {{ opcion.texto }}
+                </label>
+            </p>
+        {% endfor %}
+
+        <button class="btn btn-primary" type="submit">Responder</button>
+    </form>
+
+    <hr>
+
+{% empty %}
+    <p>No hay preguntas disponibles para este perfil.</p>
+{% endfor %}
+
+{% endblock %}

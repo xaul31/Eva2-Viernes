@@ -1,0 +1,6 @@
+# Dependencias del proyecto CiberDuo
+
+
+Django==4.2.30
+django-axes==6.5.1
+mysqlclient==2.2.7

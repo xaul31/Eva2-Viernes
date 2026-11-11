@@ -217,25 +217,43 @@ class OpcionDeleteView(AdminRequeridoMixin, DeleteView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-# Cuestionario view
+# Dashboard de perfiles
 
 class CuestionarioListView(LoginRequiredMixin, ListView):
-    model = Pregunta
+    model = Perfil
     template_name = 'contenido/cuestionario.html'
+    context_object_name = 'perfiles'
+
+    def get_queryset(self):
+        return Perfil.objects.filter(activo=True).order_by('nombre')
+
+
+class PreguntasPerfilView(LoginRequiredMixin, ListView):
+    model = Pregunta
+    template_name = 'contenido/preguntas_perfil.html'
     context_object_name = 'preguntas'
 
     def get_queryset(self):
-        preguntas = Pregunta.objects.filter(activa=True)
+        self.perfil = get_object_or_404(
+            Perfil,
+            slug=self.kwargs['slug'],
+            activo=True
+        )
 
-        preguntas = preguntas.annotate(total_opciones=Count('opciones')).filter(total_opciones=3)
+        preguntas = Pregunta.objects.filter(
+            perfil=self.perfil,
+            activa=True
+        ).annotate(total_opciones=Count('opciones')).filter(total_opciones=3)
 
-        preguntas = [
-            pregunta for pregunta in preguntas if pregunta.opciones.filter(es_correcta=True).count() == 1
+        return [
+            pregunta for pregunta in preguntas
+            if pregunta.opciones.filter(es_correcta=True).count() == 1
         ]
 
-        return preguntas
-
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['perfil'] = self.perfil
+        return context
 
 # responder cuestionario
 
@@ -260,7 +278,7 @@ class ResponderPreguntaView(LoginRequiredMixin, View):
                 'Respuesta incorrecta. ' + opcion.retroalimentacion
             )
 
-        return redirect('cuestionario')
+        return redirect('preguntas_perfil', slug=pregunta.perfil.slug)
 
 
 # Registro de usuarios
@@ -315,5 +333,33 @@ def guardar_consentimiento(request):
             )
 
             return respuesta
+
+    return redirect('cuestionario')
+
+
+def cambiar_tema(request):
+    if request.method == 'POST':
+        tema = request.POST.get('theme')
+        destino = request.POST.get('next')
+
+        if tema not in ['light', 'dark']:
+            return redirect('cuestionario')
+
+        if not url_has_allowed_host_and_scheme(
+            url=destino,
+            allowed_hosts={request.get_host()}
+        ):
+            destino = 'cuestionario'
+
+        respuesta = redirect(destino)
+        respuesta.set_cookie(
+            'ciberduo_theme',
+            tema,
+            max_age=31536000,
+            httponly=True,
+            samesite='Lax',
+            secure=request.is_secure()
+        )
+        return respuesta
 
     return redirect('cuestionario')

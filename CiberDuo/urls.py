@@ -45,10 +45,12 @@ urlpatterns = [
     path('opciones/<int:pk>/eliminar/', views.OpcionDeleteView.as_view(), name='eliminar_opcion'),
     path('', views.CuestionarioListView.as_view(), name='cuestionario'),
     path('', RedirectView.as_view(url='/cuestionario/', permanent=False), name='home'),
+    path('perfil/<slug:slug>/', views.PreguntasPerfilView.as_view(), name='preguntas_perfil'),
     path('cuestionario/<int:pk>/responder/', views.ResponderPreguntaView.as_view(), name='responder_pregunta'),
     path('login/', auth_views.LoginView.as_view(template_name='contenido/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('registro/', views.RegistroView.as_view(), name='registro'),
     path('historial/', views.HistorialView.as_view(), name='historial'),
     path('guardar-consentimiento/', views.guardar_consentimiento, name='guardar_consentimiento'),
+    path('cambiar-tema/', views.cambiar_tema, name='cambiar_tema'),
 ]
