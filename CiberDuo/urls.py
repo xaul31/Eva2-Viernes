@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from contenido import views
 from django.contrib.auth import views as auth_views
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin_usuarios'),
@@ -42,9 +43,10 @@ urlpatterns = [
     path('opciones/crear/', views.OpcionCreateView.as_view(), name='crear_opcion'),
     path('opciones/<int:pk>/editar/', views.OpcionUpdateView.as_view(), name='editar_opcion'),
     path('opciones/<int:pk>/eliminar/', views.OpcionDeleteView.as_view(), name='eliminar_opcion'),
-    path('cuestionario/', views.CuestionarioListView.as_view(), name='cuestionario'),
+    path('', views.CuestionarioListView.as_view(), name='cuestionario'),
+    path('', RedirectView.as_view(url='/cuestionario/', permanent=False), name='home'),
     path('cuestionario/<int:pk>/responder/', views.ResponderPreguntaView.as_view(), name='responder_pregunta'),
-    path('', auth_views.LoginView.as_view(template_name='contenido/login.html'), name='login'),
+    path('login/', auth_views.LoginView.as_view(template_name='contenido/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('registro/', views.RegistroView.as_view(), name='registro'),
     path('historial/', views.HistorialView.as_view(), name='historial'),
